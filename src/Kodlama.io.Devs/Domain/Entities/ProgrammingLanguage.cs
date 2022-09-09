@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class ProgrammingLanguage:Entity
+    public class ProgrammingLanguage : Entity
     {
         public string Name { get; set; }
+        public virtual ICollection<Tech> Teches { get; set; }
         public ProgrammingLanguage()
         {
 

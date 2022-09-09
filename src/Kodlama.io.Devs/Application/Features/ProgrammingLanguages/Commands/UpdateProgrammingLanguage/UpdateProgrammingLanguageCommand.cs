@@ -37,6 +37,6 @@ namespace Application.Features.ProgrammingLanguages.Commands.UpdateProgrammingLa
             ProgrammingLanguage ProgrammingLanguage = await programmingLanguageRepository.UpdateAsync(programmingLaguage);
             var updatedProgrammingLanguage = _mapper.Map<UpdatedProgrammingLanguageDto>(ProgrammingLanguage);
             return updatedProgrammingLanguage;
-        }
+        } 
     }
 }
