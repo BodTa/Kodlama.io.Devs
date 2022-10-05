@@ -1,6 +1,8 @@
-﻿using Application.Features.ProgrammingLanguages.Rules.ProgrammingLanguageBusinessRules;
+﻿using Application.Features.Auths.Rules;
+using Application.Features.ProgrammingLanguages.Rules.ProgrammingLanguageBusinessRules;
 using Application.Features.SocialLinks.Rules;
 using Application.Features.Users.Rules;
+using Application.Services.AuthService;
 using Core.Application.Pipelines.Validation;
 using FluentValidation;
 using MediatR;
@@ -24,6 +26,7 @@ namespace Application
 
             services.AddScoped<ProgrammingLanguageBusinessRules>();
             services.AddScoped<UserBusinessRules>();
+            services.AddScoped<AuthBusinessRules>();
             services.AddScoped<SocialLinkBusinessRules>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
@@ -32,7 +35,7 @@ namespace Application
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheRemovingBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-
+            services.AddScoped<IAuthService, AuthManager>();
             return services;
 
         }

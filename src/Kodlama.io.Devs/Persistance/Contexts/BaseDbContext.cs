@@ -69,36 +69,6 @@ namespace Persistence.Contexts
                 p.ToTable("AppUsers");
                 p.HasMany(p => p.SocialLinks);
             });
-            modelBuilder.Entity<UserOperationClaim>(a =>
-            {
-                a.ToTable("UserOperationClaims").HasKey(k => k.Id);
-                a.Property(p => p.OperationClaimId).HasColumnName("Id");
-                a.Property(p => p.UserId).HasColumnName("UserId");
-                a.HasOne(p => p.OperationClaim);
-                a.HasOne(p => p.User);
-            });
-            modelBuilder.Entity<OperationClaim>(a =>
-            {
-                a.ToTable("OperationClaims").HasKey(k => k.Id);
-                a.Property(p => p.Id).HasColumnName("Id");
-                a.Property(p => p.Name).HasColumnName("Name");
-            });
-            modelBuilder.Entity<RefreshToken>(a =>
-            {
-                a.ToTable("RefreshTokens").HasKey(k => k.Id);
-                a.Property(p => p.Id).HasColumnName("Id");
-                a.Property(p => p.UserId).HasColumnName("UserId");
-                a.Property(p => p.ReplacedByToken).HasColumnName("ReplacedByToken");
-                a.Property(p => p.RevokedByIp).HasColumnName("RevokedByIp");
-                a.Property(p => p.Created).HasColumnName("Created");
-                a.Property(p => p.CreatedByIp).HasColumnName("CreatedByIp");
-                a.Property(p => p.Expires).HasColumnName("Expires");
-                a.Property(p => p.ReasonRevoked).HasColumnName("UseReasonRevokedrId");
-                a.Property(p => p.Revoked).HasColumnName("Revoked");
-                a.Property(p => p.Token).HasColumnName("Token");
-                a.HasOne(p => p.User);
-
-            });
             modelBuilder.Entity<SocialLink>(a =>
             {
                 a.ToTable("SocialLinks").HasKey(k => k.Id);

@@ -26,73 +26,61 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("OperationClaims", (string)null);
+                    b.ToTable("OperationClaims");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedByIp")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CreatedByIp");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Expires");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ReasonRevoked")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UseReasonRevokedrId");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReplacedByToken")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ReplacedByToken");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Revoked");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("RevokedByIp")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("RevokedByIp");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Token");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.User", b =>
@@ -148,18 +136,15 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id1");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("OperationClaimId")
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -167,7 +152,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserOperationClaims", (string)null);
+                    b.ToTable("userOperationClaims");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProgrammingLanguage", b =>

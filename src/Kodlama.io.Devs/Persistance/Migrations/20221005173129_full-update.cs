@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class Init : Migration
+    public partial class fullupdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,6 +75,22 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppUsers_Users_Id",
+                        column: x => x.Id,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 columns: table => new
                 {
@@ -88,7 +104,7 @@ namespace Persistence.Migrations
                     Revoked = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RevokedByIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReplacedByToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UseReasonRevokedrId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ReasonRevoked = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,29 +118,49 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserOperationClaims",
+                name: "userOperationClaims",
                 columns: table => new
                 {
-                    Id1 = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    OperationClaimId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserOperationClaims", x => x.Id1);
+                    table.PrimaryKey("PK_userOperationClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserOperationClaims_OperationClaims_Id",
-                        column: x => x.Id,
+                        name: "FK_userOperationClaims_OperationClaims_OperationClaimId",
+                        column: x => x.OperationClaimId,
                         principalTable: "OperationClaims",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserOperationClaims_Users_UserId",
+                        name: "FK_userOperationClaims_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SocialLinks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialLinks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SocialLinks_AppUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -158,18 +194,23 @@ namespace Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SocialLinks_AppUserId",
+                table: "SocialLinks",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teches_LanguageId",
                 table: "Teches",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOperationClaims_Id",
-                table: "UserOperationClaims",
-                column: "Id");
+                name: "IX_userOperationClaims_OperationClaimId",
+                table: "userOperationClaims",
+                column: "OperationClaimId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOperationClaims_UserId",
-                table: "UserOperationClaims",
+                name: "IX_userOperationClaims_UserId",
+                table: "userOperationClaims",
                 column: "UserId");
         }
 
@@ -179,10 +220,16 @@ namespace Persistence.Migrations
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
+                name: "SocialLinks");
+
+            migrationBuilder.DropTable(
                 name: "Teches");
 
             migrationBuilder.DropTable(
-                name: "UserOperationClaims");
+                name: "userOperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "ProgramingLanguages");
