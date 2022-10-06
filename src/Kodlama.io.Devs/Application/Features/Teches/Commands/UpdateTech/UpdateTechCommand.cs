@@ -1,6 +1,7 @@
 ﻿using Application.Features.Teches.Dtos;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Teches.Commands.UpdateTech;
 
-public class UpdateTechCommand:IRequest<UpdatedTechDto>
+public class UpdateTechCommand:IRequest<UpdatedTechDto>,ISecuredRequest
 {
+    public string[] Roles { get; } = { "user" };
+
     public int Id { get; set; }
     public string Name { get; set; }
     public int LanguageId { get; set; }

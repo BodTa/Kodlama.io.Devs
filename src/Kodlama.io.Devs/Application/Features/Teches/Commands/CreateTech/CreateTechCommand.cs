@@ -1,6 +1,7 @@
 ﻿using Application.Features.Teches.Dtos;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
 
@@ -11,10 +12,12 @@ public class CreateTechCommand:IRequest<CreatedTechDto>
     public string Name { get; set; }
     public int LanguageId { get; set; }
 }
-public class CreatedTechCommandHandler : IRequestHandler<CreateTechCommand, CreatedTechDto>
+public class CreatedTechCommandHandler : IRequestHandler<CreateTechCommand, CreatedTechDto>,ISecuredRequest
 {
     private readonly IMapper mapper;
     private readonly ITechRepository techRepository;
+    public string[] Roles { get; } = { "user" };
+
 
     public CreatedTechCommandHandler(IMapper mapper, ITechRepository techRepository)
     {

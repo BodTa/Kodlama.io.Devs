@@ -15,4 +15,4 @@ public static class SecurityServiceRegistration
         services.AddScoped<IOtpAuthenticatorHelper, OtpNetOtpAuthenticatorHelper>();
         return services;
     }
-}
+} 

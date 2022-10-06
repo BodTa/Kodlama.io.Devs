@@ -2,6 +2,7 @@
 using Application.Features.SocialLinks.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,10 +13,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.SocialLinks.Commands.CreateSocialLink;
 
-public class CreateSocialLinkCommand:IRequest<CreatedSocialLinkDto>
+public class CreateSocialLinkCommand:IRequest<CreatedSocialLinkDto>,ISecuredRequest
 {
     public string Url { get; set; }
     public int UserId { get; set; }
+    public string[] Roles { get; } = { "user" };
+
 }
 public class CreateSocialLinkCommandHandler : IRequestHandler<CreateSocialLinkCommand, CreatedSocialLinkDto>
 {

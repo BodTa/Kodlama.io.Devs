@@ -3,6 +3,7 @@
 using Application.Features.UserOperationClaims.Models;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Core.Security.Entities;
@@ -10,9 +11,11 @@ using MediatR;
 
 namespace Application.Features.UserOperationClaims.Queries.GetList;
 
-public class GetListUserOperationClaimQuery:IRequest<GetListUserOperationClaimModel>
+public class GetListUserOperationClaimQuery:IRequest<GetListUserOperationClaimModel>,ISecuredRequest
 {
     public PageRequest PageRequest { get; set; }
+    public string[] Roles { get; } = { "admin" };
+
 }
 public class GetListUserOperationClaimQueryHandler : IRequestHandler<GetListUserOperationClaimQuery, GetListUserOperationClaimModel>
 {

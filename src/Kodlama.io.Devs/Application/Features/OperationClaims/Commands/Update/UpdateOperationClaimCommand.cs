@@ -3,6 +3,7 @@ using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
 using MediatR;
@@ -14,11 +15,13 @@ public class UpdateOperationClaimCommand:IRequest<UpdatedUserOperationClaimDto>
     public int Id { get; set; }
     public string Name { get; set; }
 }
-public class UpdateOperationClaimCommandHandler : IRequestHandler<UpdateOperationClaimCommand, UpdatedUserOperationClaimDto>
+public class UpdateOperationClaimCommandHandler : IRequestHandler<UpdateOperationClaimCommand, UpdatedUserOperationClaimDto>,ISecuredRequest
 {
     private readonly IMapper _mapper;
     private readonly IOperationClaimRepository _operationClaimRepository;
     private readonly OperationClaimBusinessRules _operationClaimBusinessRules;
+    public string[] Roles { get; } = { "admin" };
+
 
     public UpdateOperationClaimCommandHandler(IMapper mapper, IOperationClaimRepository operationClaimRepository, OperationClaimBusinessRules operationClaimBusinessRules)
     {

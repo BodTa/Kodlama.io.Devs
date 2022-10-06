@@ -2,6 +2,7 @@
 using Application.Features.SocialLinks.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,9 +13,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.SocialLinks.Commands.DeleteSocialLink;
 
-public class DeleteSocialLinkCommand:IRequest<DeletedSocialLinkDto>
+public class DeleteSocialLinkCommand:IRequest<DeletedSocialLinkDto>,ISecuredRequest
 {
     public int Id { get; set; }
+    public string[] Roles { get; } = { "user" };
+
 }
 public class DeleteSocialLinkCommandHanler : IRequestHandler<DeleteSocialLinkCommand, DeletedSocialLinkDto>
 {

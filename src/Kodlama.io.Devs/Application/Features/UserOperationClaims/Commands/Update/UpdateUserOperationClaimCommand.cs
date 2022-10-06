@@ -2,16 +2,19 @@
 using Application.Features.UserOperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
 using MediatR;
 namespace Application.Features.UserOperationClaims.Commands.Update;
 
-public class UpdateUserOperationClaimCommand:IRequest<UpdatedUserOperationClaimDto>
+public class UpdateUserOperationClaimCommand:IRequest<UpdatedUserOperationClaimDto>,ISecuredRequest
 {
     public int Id { get; set; }
     public int OperationClaimId { get; set; }
     public int UserId { get; set; }
+    public string[] Roles { get; } = { "admin" };
+
 }
 public class UpdateUserOperationClaimCommandHandler : IRequestHandler<UpdateUserOperationClaimCommand, UpdatedUserOperationClaimDto>
 {

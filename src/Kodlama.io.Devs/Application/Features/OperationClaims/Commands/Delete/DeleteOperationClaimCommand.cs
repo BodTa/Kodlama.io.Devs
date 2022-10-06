@@ -2,6 +2,7 @@
 using Application.Features.OperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 
@@ -12,11 +13,13 @@ public class DeleteOperationClaimCommand:IRequest<DeletedOperationClaimDto>
 {
     public int Id { get; set; }
 }
-public class DeleteOperationClaimCommandHandler : IRequestHandler<DeleteOperationClaimCommand, DeletedOperationClaimDto>
+public class DeleteOperationClaimCommandHandler : IRequestHandler<DeleteOperationClaimCommand, DeletedOperationClaimDto>,ISecuredRequest
 {
     private readonly IOperationClaimRepository _operationClaimRepository;
     private readonly IMapper _mapper;
     private readonly OperationClaimBusinessRules _operationClaimBusinessRules;
+    public string[] Roles { get; } = { "admin" };
+
 
     public DeleteOperationClaimCommandHandler(IOperationClaimRepository operationClaimRepository, IMapper mapper, OperationClaimBusinessRules operationClaimBusinessRules)
     {

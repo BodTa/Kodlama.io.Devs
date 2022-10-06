@@ -4,16 +4,19 @@ using Application.Features.UserOperationClaims.Dtos;
 using Application.Features.UserOperationClaims.Models;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Requests;
 using Core.Security.Entities;
 using MediatR;
 
 namespace Application.Features.UserOperationClaims.Commands.Create;
 
-public class CreateUserOperationClaimCommand:IRequest<CreatedUserOperationClaimDto>
+public class CreateUserOperationClaimCommand : IRequest<CreatedUserOperationClaimDto>, ISecuredRequest
 {
     public int UserId { get; set; }
     public int OperationClaimId { get; set; }
+
+    public string[] Roles { get; } = {"admin"};
 }
 public class CreateUserOperationClaimCommandHanlder : IRequestHandler<CreateUserOperationClaimCommand, CreatedUserOperationClaimDto>
 {

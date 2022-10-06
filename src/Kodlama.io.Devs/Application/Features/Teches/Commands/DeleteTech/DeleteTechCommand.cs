@@ -1,6 +1,7 @@
 ﻿using Application.Features.Teches.Dtos;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,9 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Teches.Commands.DeleteTech;
 
-public class DeleteTechCommand:IRequest<DeletedTechDto>
+public class DeleteTechCommand:IRequest<DeletedTechDto>,ISecuredRequest
 {
     public int Id { get; set; }
+    public string[] Roles { get; } = { "user" };
+
 }
 public class DeleteTechCommandHanler : IRequestHandler<DeleteTechCommand, DeletedTechDto>
 {
