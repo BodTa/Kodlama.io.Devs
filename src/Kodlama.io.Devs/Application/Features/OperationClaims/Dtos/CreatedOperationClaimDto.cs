@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Dtos
+namespace Application.Features.OperationClaims.Dtos
 {
-    internal class DeletedUserDto
+    public class CreatedOperationClaimDto
     {
+        public string Name { get; set; }
     }
 }

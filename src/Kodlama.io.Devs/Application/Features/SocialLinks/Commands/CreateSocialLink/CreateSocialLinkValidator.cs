@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Dtos
+namespace Application.Features.SocialLinks.Commands.CreateSocialLink
 {
-    internal class UpdatedUserDto
+    internal class CreateSocialLinkValidator
     {
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Application.Features.Auths.Commands.Login;
 using Application.Features.Auths.Commands.Register;
 using Application.Features.Auths.Dtos;
-using Application.Features.Users.Commands.CreateUser;
-using Application.Features.Users.Queries.UserLogin;
 using Core.Security.Dtos;
 using Core.Security.Entities;
 using Microsoft.AspNetCore.Http;
